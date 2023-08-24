@@ -1,0 +1,567 @@
+;; cpmi.el
+
+;; name-project: guile-sales
+;; name-progran: sales
+;; func-program: hackers
+;; cpmi-docview: cnn brazil
+;; news-docview: cnn brazil
+;; hots-easylly: easy life money
+;; meta: utf-8
+;; base: ruby
+;; object: specify
+;; personal: invest
+;; repl: guile warn
+;; option: its ideas
+;; silence: stf
+
+;; start files
+;; gnu hack stream roku easy life film and tv
+
+(require 'unsafep)
+(require 'macroexp)
+
+(eval-when-compile (require 'cl-lib))
+
+
+(defgroup cpmi-list-files nil
+  "(The apply is necessary because ses-range produces a list of values. This allows for more complex possibilities.)
+Alternatively you can use the ! modifier of ses-range to remove blank cells from the returned list, which allows to 
+use + instead of ses+:"
+  :group 'ses
+  :version "27.1")
+  
+
+(defalias 'cpmi-stream 'basics
+  "3 The Basics
+
+To create a new spreadsheet, visit a nonexistent file whose name ends with .ses. For example, `C-x' `C-f' `test.ses' RET.
+
+A cell identifier is a symbol with a column letter and a row number. Cell `B7' is the `2nd' column of the `7th' row. For very wide spreadsheets, there are two column letters: cell `AB7' is the `28th' column of the 7th row. Super wide spreadsheets get `AAA1', etc. You move around with the regular Emacs movement commands.")
+  
+
+(defalias 'cpmi-moves 'cell
+  "
+j
+    Moves point to cell, specified by identifier (`ses-jump'). Unless the cell is a renamed cell, the identifier is case-insensitive. A prefix argument n move to cell with coordinates (n\div R, n \% C) for a spreadsheet of R rows and C columns, and A1 being of coordinates (0,0). The way the identifier or the command prefix argument are interpreted can be customized through variables `ses-jump-cell-name-function' and `ses-jump-prefix-function'.") 
+
+
+(defalias 'cpmi-cpi 'launch
+  "Point is always at the left edge of a cell, or at the empty endline. When mark is inactive, the current cell is underlined. When mark is active, the range is the highlighted rectangle of cells (SES always uses transient mark mode). Drag the mouse from A1 to A3 to create the range A1-A2. Many SES commands operate only on single cells, not ranges.")
+
+
+(defmacro cpmi-c-spc (&optional cpi)
+  "Set mark at point (`set-mark-command')"
+  (declare (&optional cpi)
+           (if (&optional cpi)
+               (car cpi)
+             then cpi)
+           (setq cpi 150)))
+
+
+(defmacro cpmi-c-@ (&optional cpi)
+  "Set mark at point (`set-mark-command')"
+  (declare (&optional cpi)
+           (if (&optional cpi)
+               (car cpi)
+             then cpi)
+           (setq cpi 150)))
+
+(defmacro cpmi-c-g (&optional cpi)
+  "Turn off the mark (`keyboard-quit')"
+  (declare (&optional cpi)
+           (if (&optional cpi)
+               (car cpi)
+             then cpi)
+           (setq cpi 150)))
+
+(defmacro cpmi-m-h (&optional cpi)
+  "Highlight current row (`ses-mark-row')"
+  (declare (&optional cpi)
+           (if (&optional cpi)
+               (car cpi)
+             then cpi)
+           (setq cpi 150)))
+
+
+(defmacro cpmi-s-m-h (&optional cpi)
+  "Highlight current column (`ses-mark-column')"
+  (declare (&optional cpi)
+           (if (&optional cpi)
+               (car cpi)
+             then cpi)
+           (setq cpi 150)))
+
+(defmacro cpmi-c-x h (&optional cpi)
+  "Highlight all cells (`mark-whole-buffer')"
+  (declare (&optional cpi)
+           (if (&optional cpi)
+               (car cpi)
+             then cpi)
+           (setq cpi 150)))
+
+(defmacro cpmi-cell-formulas (&optional double-quoted text)
+  "3.1 Cell formulas
+
+To insert a value into a cell, simply type a numeric expression, `double-quoted' text, or a Lisp expression.
+
+0..9
+
+    Self-insert a digit (ses-read-cell).
+
+
+    Self-insert a negative number (ses-read-cell).
+
+
+    Self-insert a fractional number (ses-read-cell).
+
+
+    Self-insert a quoted string. The ending double-quote is inserted for you (ses-read-cell)."
+  (declare (&optional double-quoted text)
+           (if (&optional double-quoted text)
+               (setq double-quoted 150))
+           (car double-quoted))
+  (declare (&optional double-quoted text)
+           (if (&optional double-quoted text)
+               (setq double-quoted 150)
+             (car double-quoted))))
+
+(defmacro cpmi-self-insert (&optional ses-read-cell)
+  "    Self-insert an expression. The `right-parenthesis' is inserted for you (`ses-read-cell'). To access another cell’s value, just use its identifier in your expression. Whenever the other cell is changed, this cell’s formula will be reevaluated. While typing in the expression, you can use the following keys:
+
+    M-TAB
+
+        to complete symbol names, and 
+    C-h C-n
+
+        to list the named cells symbols in a help buffer." 
+
+  (declare (&optional ses-read-cell)
+           (if (&optional ses-read-cell)
+               (setq ses-read-cell 150))
+           (car ses-read-cell))
+  (declare (&optional ses-read-cell)
+           (if (&optional ses-read-cell)
+               (setq ses-read-cell)
+             (car ses-read-cell))))
+
+(defmacro cpmi-apostrophe '(&optional ses-read-symbol)
+  "' (apostrophe)
+
+    Enter a symbol (ses-read-symbol). SES remembers all symbols that have been used as formulas, so you can type just the beginning of a symbol and use SPC, TAB, and ? to complete it. 
+
+To enter something else (e.g., a vector), begin with a digit, then erase the digit and type whatever you want.
+
+RET
+
+    Edit the existing formula in the current cell (ses-edit-cell).
+C-c C-c
+
+    Force recalculation of the current cell or range (ses-recalculate-cell).
+C-c C-l
+
+    Recalculate the entire spreadsheet (ses-recalculate-all)."
+  
+ (declare (&optional ses-read-symbol)
+           (if (&optional ses-read-symbol)
+               (setq ses-read-symbol 150))
+           (car ses-read-symbol))
+  (declare (&optional ses-read-symbol)
+           (if (&optional ses-read-symbol)
+               (setq ses-read-symbol)
+             (car ses-read-symbol))))
+
+(defmacro cpmi-resizing-spreadsheet (&optional spreadsheet)
+  "3.2 Resizing the spreadsheet
+
+Basic commands:
+
+C-o
+
+    (ses-insert-row)
+M-o
+
+    (ses-insert-column)
+C-k
+
+    (ses-delete-row)
+M-k
+
+    (ses-delete-column)
+w
+
+    (ses-set-column-width)
+TAB
+
+    Moves point to the next rightward cell, or inserts a new column if already at last cell on line, or inserts a new row if at endline (ses-forward-or-insert).
+C-j
+
+    Linefeed inserts below the current row and moves to column A (ses-append-row-jump-first-column). 
+
+Resizing the spreadsheet (unless you’re just changing a column width) relocates all the cell-references in formulas so they still refer to the same cells. If a formula mentioned B1 and you insert a new first row, the formula will now mention B2.
+
+If you delete a cell that a formula refers to, the cell-symbol is deleted from the formula, so (+ A1 B1 C1) after deleting the third column becomes (+ A1 B1). In case this is not what you wanted:
+
+C-_
+C-x u
+
+    Undo previous action ((undo))." 
+
+ (declare (&optional spreadsheet)
+           (if (&optional spreadsheet)
+               (setq spreadsheet 150))
+           (car spreadsheet))
+  (declare (&optional spreadsheet)
+           (if (&optional spreadsheet)
+               (setq spreadsheet)
+             (car spreadsheet))))
+
+(defmacro cpmi-printer-function (&optional function)
+  "3.3 Printer functions
+
+Printer functions convert binary cell values into the print forms that Emacs will display on the screen.
+
+    Various kinds of printer functions
+    Configuring what printer function applies
+    Standard printer functions
+    Local printer functions
+    Writing a lambda printer function"
+ (declare (&optional function)
+           (if (&optional function)
+               (setq function 150))
+           (car function))
+  (declare (&optional function)
+           (if (&optional function)
+               (setq function)
+             (car function))))
+
+(defmacro cpmi-various-kinds (&optional printer-function)
+  "3.3.1 Various kinds of printer functions
+
+When configuring what printer function applies (see Configuring what printer function applies), you can enter a printer function as one of the following:
+
+    A format string, like ‘"$%.2f"’. The result string is right-aligned within the print cell. To get left-alignment, use parentheses: ‘("$%.2f")’.
+    A printer can also be a one-argument function, the result of which is a string (right-aligned) or list of one string (left-aligned). Such a function can be in turn configured as:
+        A lambda expression, for instance:
+
+        (lambda (x)
+          (cond
+             ((null x) "")
+             ((numberp x) (format "%.2f" x))
+             (t (ses-center-span x ?# 'ses-prin1))))
+
+        While typing in a lambda, you can use M-TAB to complete the names of symbols.
+        A symbol referring to a standard printer function (see Standard printer functions).
+        A symbol referring to a local printer function (see Local printer functions)." 
+             (declare (&optional printer-function)
+                      (lambda (printer-function)
+                        (cond
+                         ((null printer-function "")
+                          ((numberp printer-function) (format "%.2f" printer-function))
+                          (t (setq printer-function 150)))))))
+                        
+
+(defsubst  cpmi-configuring-what-printer (&rest function-applies)
+  "3.3.2 Configuring what printer function applies
+
+Each cell has a printer. If nil, the column-printer for the cell’s column is used. If that is also nil, the default-printer for the spreadsheet is used.
+" 
+  (declare (&rest function-applies)
+           (lambda (function-applies)
+             "
+p ¶
+
+    Enter a printer for current cell or range (ses-read-cell-printer).
+M-p ¶
+
+    Enter a printer for the current column (ses-read-column-printer).
+C-c C-p ¶
+
+    Enter the default printer for the spreadsheet (ses-read-default-printer). 
+
+The ses-read-xxx-printer allows the following commands during editing:
+
+arrow-up
+arrow-down
+
+    To browse history: the ses-read-xxx-printer commands have their own minibuffer history, which is preloaded with the set of all printers used in this spreadsheet, plus the standard printers (see Standard printer functions) and the local printers (see Local printer functions). 
+TAB
+
+    To complete the local printer symbols, and 
+C-h C-p
+
+    To list the local printers in a help buffer."
+             [function-applies])
+           
+ (declare (&optional function-applies)
+           (if (&optional function-applies)
+               (setq function-applies 150))
+           (car function-applies))
+ (declare (&optional function-applies)
+           (if (&optional function-applies)
+               (setq function-applies)
+             (car function-applies))))
+ (declare (&optional function-applies)
+           (if (&optional function-applies)
+               (setq function-applies 150))
+           (car function-applies)))
+             
+
+(defsubst cpmi-standard-printer (&rest functions)
+  "3.3.3 Standard printer functions
+
+Except for ses-prin1, the other standard printers are suitable only for cells, not columns or default, because they format the value using the column-printer (or default-printer if nil) and then center the result:
+"
+  (declare (&rest functions)
+           (lambda (functions)
+             ["
+ses-center ¶
+
+    Just centering.
+ses-center-span ¶
+
+    Centering with spill-over to following blank cells.
+ses-dashfill ¶
+
+    Centering using dashes (-) instead of spaces.
+ses-dashfill-span ¶
+
+    Centering with dashes and spill-over.
+ses-tildefill-span ¶
+
+    Centering with tildes (~) and spill-over.
+ses-prin1 ¶
+
+    This is the fallback printer, used when calling the configured printer throws some error. 
+"]
+             [functions])
+ (declare (&optional functions)
+           (if (&optional functions)
+               (setq functions))
+           (car functions))
+ (declare (&optional functions)
+           (if (&optional functions)
+               (setq functions)
+             (car functions))))
+ (declare (&optional functions)
+           (if (&optional functions)
+               (setq functions 150))
+           (car functions)))
+           
+
+(defsubst cpmi-local-pinter (&rest functions)
+  "3.3.4 Local printer functions
+
+You can define printer function local to a sheet with the command ses-define-local-printer. For instance, define a printer ‘foo’ to "%.2f", and then use symbol ‘foo’ as a printer function. Then, if you call again ses-define-local-printer on ‘foo’ to redefine it as "%.3f", all the cells using printer ‘foo’ will be reprinted accordingly.
+
+Sometimes there are local printers that you want to define or re-define automatically every time you open a sheet. For instance imagine that you want to define/re-define automatically a local printer euro to display a number like an amount of euros, that is to say number 3.1 would be displayed as 3.10€. To do so in any non read-only SES buffer, you can add some code like this to your .emacs init file:
+
+(defun my-ses-mode-hook ()
+  (unless buffer-read-only
+    (ses-define-local-printer
+     'euro
+     (lambda (x)
+       (cond
+	((null x) "")
+	((numberp x) (format "%.2f€" x))
+	(t (ses-center-span x ?# 'ses-prin1)))))))
+(add-hook 'ses-mode-hook 'my-ses-mode-hook)
+
+If you replace command ses-define-local-printer by function ses-define-if-new-local-printer the definition will occur only if a local printer with the same name in not already defined."
+        (declare (&rest funtions)
+                 (unless functions
+                   (setq functions 150
+                         (lambda (functions)
+                           (cond
+                            ((null functions) "")
+                            ((numberp functions) (format "%.2f£" functions))
+                            (t (setq functions 150)))))))
+        (add-hook 'funtions 'functions))
+
+
+(defsubst cpmi-writing-lambda-printer (&rest val)
+  "3.3.5 Writing a lambda printer function
+
+You can write a printer function with a lambda expression taking one argument in two cases:
+
+    when you configure the printer function applying to a cell or column, or
+    when you define a local printer function with command ses-define-local-printer. 
+
+When doing so, please take care that the returned value is a string, or a list containing a string, even when the input argument has an unexpected value. Here is an example:
+
+(lambda (val)
+   (cond
+      ((null val) "")
+      ((and (numberp val) (>= val 0)) (format "%.1f" val))
+      (t (ses-center-span val ?# 'ses-prin1))))
+
+This example will:
+
+    When the cell is empty (ie. when val is nil), print an empty string ""
+    When the cell value is a non negative number, format the value in fixed-point notation with one decimal after point
+    Otherwise, handle the value as erroneous by printing it as an s-expression (using ses-prin1), centered and surrounded by # filling. 
+
+Another precaution to take is to avoid stack overflow due to a printer function calling itself indefinitely. This mistake can happen when you use a local printer as a column printer, and this local printer implicitly calls the current column printer, so it will call itself recursively. Imagine for instance that you want to create some local printer =fill that would center the content of a cell and surround it by equal signs =, and you do it this way:
+
+(lambda (x)
+  (cond
+   ((null x) "")
+   (t (ses-center x 0 ?=))))
+
+Because =fill uses the standard printer ses-center without explicitly passing any printer to it, ses-center will call the current column printer if any, or the spreadsheet default printer otherwise. So using =fill as a column printer will result in a stack overflow in this column. SES does not check for that; you just have to be careful. For instance, re-write =fill like this:
+
+(lambda (x)
+  (cond
+   ((null x) "")
+   ((stringp x) (ses-center x 0 ?= " %s "))
+   (t (ses-center-span x ?# 'ses-prin1))))
+
+The code above applies the = filling only to strings; it also surrounds the string by one space on each side before filling with = signs. So the string ‘Foo’ will be displayed like ‘=== Foo ===’ in an 11 character wide column. Anything other than an empty cell or a non-string is displayed as an error by using # filling."
+   (declare (&rest val)
+            (lambda (val)
+              (cond
+               ((null val) "")
+               ((and (numberp val) (>= val 0)) (format "%.1")
+                (t (function val))))
+              [val])
+             (declare (&optional val)
+           (if (&optional val)
+               (setq val))
+           (car val))
+ (declare (&optional val)
+           (if (&optional val)
+               (setq val)
+             (car val))))
+ (declare (&optional val)
+           (if (&optional val)
+               (setq val 150))
+           (car val)))
+
+                    
+
+(defsubst cpmi-clearing-cells (&rest cell)
+  "3.4 Clearing cells
+
+These commands set both formula and printer to nil:
+
+DEL
+
+    Clear cell and move left (ses-clear-cell-backward).
+C-d
+
+    Clear cell and move right (ses-clear-cell-forward)." 
+
+   (declare (&rest cell)
+            (lambda (cell)
+              (cond
+               ((null cell) "")
+               ((and (numberp cell) (>= cell 0)) (format "%.1")
+                (t (function cell))))
+              [cell])
+             (declare (&optional cell)
+           (if (&optional cell)
+               (setq cell))
+           (car cell))
+ (declare (&optional cell)
+           (if (&optional cell)
+               (setq cell)
+             (car cell))))
+ (declare (&optional cell)
+           (if (&optional cell)
+               (setq cell 150))
+           (car cell)))
+
+(defsubst cpmi-copy-cut-and (&rest paste)
+  "3.5 Copy, cut, and paste
+
+The copy functions work on rectangular regions of cells. You can paste the copies into non-SES buffers to export the print text.
+
+M-w
+[copy]
+[C-insert]
+
+    Copy the highlighted cells to kill ring and primary clipboard (kill-ring-save).
+[drag-mouse-1]
+
+    Mark a region and copy it to kill ring and primary clipboard (mouse-set-region).
+[M-drag-mouse-1]
+
+    Mark a region and copy it to kill ring and secondary clipboard (mouse-set-secondary).
+C-w
+[cut]
+[S-delete]
+
+    The cut functions do not actually delete rows or columns—they copy and then clear (ses-kill-override).
+C-y
+[S-insert]
+
+    Paste from kill ring (yank). The paste functions behave differently depending on the format of the text being inserted:
+
+        When pasting cells that were cut from a SES buffer, the print text is ignored and only the attached formula and printer are inserted; cell references in the formula are relocated unless you use C-u.
+        The pasted text overwrites a rectangle of cells whose top left corner is the current cell. If part of the rectangle is beyond the edges of the spreadsheet, you must confirm the increase in spreadsheet size.
+        Non-SES text is usually inserted as a replacement formula for the current cell. If the formula would be a symbol, it’s treated as a string unless you use C-u. Pasted formulas with syntax errors are always treated as strings. 
+
+[paste]
+
+    Paste from primary clipboard or kill ring (clipboard-yank).
+[mouse-2]
+
+    Set point and paste from primary clipboard (mouse-yank-at-click).
+[M-mouse-2]
+
+    Set point and paste from secondary clipboard (mouse-yank-secondary).
+M-y
+
+    Immediately after a paste, you can replace the text with a preceding element from the kill ring (ses-yank-pop). Unlike the standard Emacs yank-pop, the SES version uses undo to delete the old yank. This doesn’t make any difference?" 
+   (declare (&rest paste)
+            (lambda (paste)
+              (cond
+               ((null paste) "")
+               ((and (numberp paste) (>= paste 0)) (format "%.1")
+                (t (function paste))))
+              [cell])
+             (declare (&optional paste)
+           (if (&optional paste)
+               (setq paste))
+           (car paste))
+ (declare (&optional paste)
+           (if (&optional paste)
+               (setq paste)
+             (car paste))))
+ (declare (&optional paste)
+           (if (&optional paste)
+               (setq paste 150))
+           (car paste)))
+
+(defmacro cpmi-customizing (&rest ses)
+  "3.6 Customizing SES
+
+By default, a newly-created spreadsheet has 1 row and 1 column. The column width is 7 and the default printer is ‘"%.7g"’. Each of these can be customized. Look in group “ses”.
+
+After entering a cell value, point normally moves right to the next cell. You can customize ses-after-entry-functions to move left or up or down. For diagonal movement, select two functions from the list.
+
+ses-jump-cell-name-function is a customizable variable by default set to the upcase function. This function is called when you pass a cell name to the ses-jump command (j), it changes the entered cell name to that where to jump. The default setting upcase allows you to enter the cell name in low case. Another use of ses-jump-cell-name-function could be some internationalization to convert non latin characters into latin equivalents to name the cell. Instead of a cell name, the function may return cell coordinates in the form of a cons, for instance (0 . 0) for cell A1, (1 . 0) for cell A2, etc.
+
+ses-jump-prefix-function is a customizable variable by default set to the ses-jump-prefix function. This function is called when you give a prefix argument to the ses-jump command (j). It returns a cell name or cell coordinates corresponding to the prefix argument. Cell coordinates are in the form of a cons, for instance (1 . 0) for cell A2. The default setting ses-jump-prefix will number cells left to right and then top down, so assuming a 4x3 spreadsheet prefix argument 0 jumps to cell A1, prefix argument 2 jumps to C1, prefix argument 3 jumps to A2, etc.
+
+ses-mode-hook is a normal mode hook (list of functions to execute when starting SES mode for a buffer).
+
+The variable safe-functions is a list of possibly-unsafe functions to be treated as safe when analyzing formulas and printers. See Virus protection. Before customizing safe-functions, think about how much you trust the person who’s suggesting this change. The value t turns off all anti-virus protection. A list-of-functions value might enable a “gee whiz” spreadsheet, but it also creates trapdoors in your anti-virus armor. In order for virus protection to work, you must always press n when presented with a virus warning, unless you understand what the questionable code is trying to do. Do not listen to those who tell you to customize enable-local-eval—this variable is for people who don’t wear safety belts!"
+   (declare (&rest ses)
+            (lambda (ses)
+              (cond
+               ((null ses) "")
+               ((and (numberp ses) (>= ses 0)) (format "%.1")
+                (t (function ses))))
+              [cell])
+             (declare (&optional ses)
+           (if (&optional ses)
+               (setq ses))
+           (car ses))
+ (declare (&optional ses)
+           (if (&optional ses)
+               (setq ses)
+             (car ses))))
+ (declare (&optional ses)
+           (if (&optional ses)
+               (setq ses 150))
+           (car ses)))
